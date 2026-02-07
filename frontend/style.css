@@ -1,0 +1,279 @@
+/* --- CSS Variables & Theme Engine --- */
+:root[data-theme="light"] {
+    --bg: #ffffff;
+    --surface: #f8f9fa;
+    --text: #1a1a1a;
+    --text-muted: #666666;
+    --primary: #6366f1;
+    --primary-hover: #4f46e5;
+    --glass: rgba(255, 255, 255, 0.7);
+    --border: rgba(0, 0, 0, 0.3);
+    --shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+:root[data-theme="dark"] {
+    --bg: #0f172a;
+    --surface: #1e293b;
+    --text: #f8fafc;
+    --text-muted: #94a3b8;
+    --primary: #818cf8;
+    --primary-hover: #a5b4fc;
+    --glass: rgba(30, 41, 59, 0.7);
+    --border: rgba(255, 255, 255, 0.1);
+    --shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', system-ui, sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+section {
+  scroll-margin-top: 80px; /* height of your navbar */
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 2rem;
+}
+
+/* --- UI Elements --- */
+.btn {
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: white;
+}
+
+.btn-secondary {
+    background-color: var(--surface);
+    color: var(--text);
+    border: 2px solid var(--border);
+}
+
+#preview-btn{margin-top: 10px;}
+
+.btn-full { width: 100%; margin-top: 2rem; }
+
+#theme-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text);
+    font-size: 2rem;
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.gradient-text {
+    background: linear-gradient(90deg, #818cf8, #c084fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* --- Navbar --- */
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: var(--glass);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    height: 70px;
+    display: flex;
+    align-items: center;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.logo { font-size: 1.5rem; font-weight: 800; text-decoration: none; color: var(--text); }
+.logo span { color: var(--primary); }
+
+.nav-links { display: flex; list-style: none; gap: 2rem; }
+.nav-links a { text-decoration: none; color: var(--text-muted); font-size: 0.95rem; }
+.nav-links a:hover { color: var(--primary); }
+
+/* --- Hero --- */
+.hero {
+    padding: 100px 0;
+    text-align: center;
+    position: relative;
+}
+
+.hero h1 { font-size: 3.5rem; margin-bottom: 1.5rem; line-height: 1.2; }
+.hero p { font-size: 1.25rem; color: var(--text-muted); max-width: 700px; margin: 0 auto 2rem; }
+
+.blob {
+    position: absolute;
+    top: -10%; left: 50%;
+    transform: translateX(-50%);
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+    opacity: 0.15;
+    filter: blur(60px);
+    z-index: -1;
+}
+
+/* --- Tool Section --- */
+.glass-card {
+    background: var(--glass);
+    border: 2px solid var(--border);
+    border-radius: 24px;
+    padding: 3rem;
+    box-shadow: var(--shadow);
+}
+
+.input-group {
+    display: flex;
+    gap: 1rem;
+}
+
+input[type="text"] {
+    flex: 1;
+    padding: 1rem;
+    border-radius: 12px;
+    border: 2px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
+    outline: none;
+}
+
+.video-wrapper {
+    width: 100%;
+    max-width: 720px;
+    margin: 2rem auto;
+    aspect-ratio: 16/9;
+    background: #000;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.section-title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.step-card h4 {
+    margin-top: 1rem;
+    font-size: 1.25rem;
+    padding-bottom: 0.2rem;
+}
+
+iframe {
+     width: 100%;
+    aspect-ratio: 16 / 9;
+    display: block;
+    border: none;
+ }
+
+/* --- Theme Cards --- */
+.theme-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5rem;
+    margin-top: 1rem;
+}
+
+.theme-card {
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    padding: 0.5rem;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.theme-card.active { border-color: var(--primary); background: var(--surface); }
+
+.theme-preview {
+    height: 80px;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+}
+.minimal { background: #eee; }
+.cinematic { background: linear-gradient(45deg, #222, #555); }
+.bold { background: #ffde00; }
+.neon { background: #000; border: 1px solid #0ff; box-shadow: 0 0 10px #0ff; }
+
+/* --- Progress Bar --- */
+.progress-bar-container {
+    width: 100%;
+    height: 12px;
+    background: var(--surface);
+    border-radius: 6px;
+    margin: 2rem 0;
+    overflow: hidden;
+}
+
+#progress-fill {
+    width: 0%;
+    height: 100%;
+    background: var(--primary);
+    transition: width 0.4s ease;
+}
+
+.status-steps { list-style: none; margin-top: 1rem; }
+.status-steps li { color: var(--text-muted); margin-bottom: 0.5rem; opacity: 0.3; }
+.status-steps li.active { opacity: 1; color: var(--primary); font-weight: bold; }
+
+/* --- FAQ --- */
+.faq-item { border-bottom: 1px solid var(--border); }
+.faq-question {
+    width: 100%; padding: 1.5rem 0;
+    background: none; border: none;
+    color: var(--text); font-size: 1.1rem;
+    display: flex; justify-content: space-between;
+    cursor: pointer;
+}
+.faq-answer { padding-bottom: 1.5rem; color: var(--text-muted); display: none; }
+
+/* --- Footer --- */
+footer { padding: 4rem 0 2rem; border-top: 1px solid var(--border); margin-top: 100px; }
+.footer-content { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+.socials { display: flex; gap: 1rem; }
+.socials a { color: var(--text-muted); }
+.hidden { display: none !important; }
+
+/* --- Animations --- */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: 0.8s ease-out;
+}
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+    .nav-links, .nav-actions .btn-primary { display: none; }
+    .theme-grid { grid-template-columns: repeat(2, 1fr); }
+    .hero h1 { font-size: 2.2rem; }
+}
