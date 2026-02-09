@@ -217,10 +217,9 @@ iframe {
     border-radius: 8px;
     margin-bottom: 0.5rem;
 }
-.minimal { background: #eee; }
-.cinematic { background: linear-gradient(45deg, #222, #555); }
-.bold { background: #ffde00; }
-.neon { background: #000; border: 1px solid #0ff; box-shadow: 0 0 10px #0ff; }
+.template1 { background: #eee; }
+.template2 { background: linear-gradient(45deg, #222, #555); }
+.template3 { background: #ffde00; }
 
 /* --- Progress Bar --- */
 .progress-bar-container {

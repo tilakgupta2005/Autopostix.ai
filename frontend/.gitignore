@@ -1,0 +1,17 @@
+# Temporary files
+temp/
+assests/
+output/
+
+# Environment and IDE files
+.env
+.venv
+.vscode
+
+# Archives
+FFMPEG.zip
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class

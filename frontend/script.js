@@ -158,7 +158,7 @@ function createSessionId() {
 }
 
 /* Preview Reel Logic */
-async function preview_reel(sessionId = videolink) {
+async function preview_reel(sessionId) {
     const videoUrl = `http://127.0.0.1:5501/output/${sessionId}.mp4`;
     const pendingPageUrl = `/output/${sessionId}.mp4`;
 
@@ -178,10 +178,42 @@ async function preview_reel(sessionId = videolink) {
     window.open(pendingPageUrl, `Your reel is being processed. Please check back later.\nVideo Link: http://127.0.0.1:5501/output/${sessionId}.mp4`);
 }
 
+//get the active theme name
+function getActiveThemeName() {
+    const activeTheme = document.querySelector('.theme-card.active')?.dataset.themeName;
+    return activeTheme ? activeTheme : "template1";
+}
+
+//get the valid youtube url
+function getValidYoutubeUrl() {
+    const url = urlInput.value.trim();
+    return extractVideoID(url) ? url : null;
+}
+
+//handle create reel button click
+async function handleCreateReel() {
+    const template = getActiveThemeName();
+    const youtubeUrl = getValidYoutubeUrl();
+    const sessionId = createSessionId();
+
+    if (!template || !youtubeUrl) {
+        alert("Please select a template and enter a valid YouTube URL.");
+        return;
+    }
+
+    try {
+        await callTemplateAPI({
+            template: template,
+            youtubeUrl: youtubeUrl,
+            sessionId: sessionId
+        });
+    } catch (err) {
+        console.error(err);
+    }
+}
 
 /*API Call*/
-async function callTemplateAPI({ template, youtubeUrl }) {
-    const sessionId = createSessionId();
+async function callTemplateAPI({ template, youtubeUrl, sessionId}) {
     let endpoint = template; // template1, template2, template3
 
     const apiUrl = new URL(`http://127.0.0.1:8000/${endpoint}`);

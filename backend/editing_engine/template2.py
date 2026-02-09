@@ -1,8 +1,8 @@
 import json
 import os
-from video_downloader import *
-from highlight_finder import *
-from video_editing import *
+from backend.editing_engine.video_downloader import *
+from backend.editing_engine.highlight_finder import *
+from backend.editing_engine.video_editing import *
 FFMPEG_BINARY = rf"C:\Program Files\ffmpeg-2025-09-15-git-16b8a7805b-essentials_build\bin\ffmpeg.exe"
 def Temp2(video_url:str):
     global FFMPEG_BINARY
