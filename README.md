@@ -85,7 +85,9 @@ cd Autopostix.ai
 
 ### 2️⃣ Create and activate a virtual environment
 
-Windows
+```bash
+ python -m venv .venv
+```
 ```bash
 .venv\Scripts\activate
 ```
