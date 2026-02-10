@@ -49,7 +49,7 @@ Autopostix.ai/
 │ ├── gameplay.mp4 # Gameplay Videp
 │
 ├── temp/ # Temporary processing files (ignored)
-├── output/ # Generated reels (ignored)
+├── output/ # Generated reels (Important)
 ├── Requirements.txt
 ├── .env
 ├── .gitignore
