@@ -1,5 +1,6 @@
 // Initialization
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', (e) => {
+    e.preventDefault();
     lucide.createIcons();
     initTheme();
     initAnimations();
@@ -16,7 +17,8 @@ function initTheme() {
     updateThemeIcon(savedTheme);
 }
 
-themeToggle.addEventListener('click', () => {
+themeToggle.addEventListener('click', (e) => {
+     e.preventDefault();
     const currentTheme = htmlElement.getAttribute('data-theme');
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
     
@@ -33,7 +35,8 @@ function updateThemeIcon(theme) {
 
 // --- Smooth Scrolling ---
 document.querySelectorAll('.start-free-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', (e) => {
+         e.preventDefault();
         document.getElementById('tool').scrollIntoView({ behavior: 'smooth' });
     });
 });
@@ -45,7 +48,8 @@ const videoContainer = document.getElementById('video-preview-container');
 const errorMsg = document.getElementById('error-msg');
 const playerDiv = document.getElementById('player');
 
-previewBtn.addEventListener('click', () => {
+previewBtn.addEventListener('click', (e) => {
+     e.preventDefault();
     const url = urlInput.value.trim();
     const videoId = extractVideoID(url);
 
@@ -72,7 +76,8 @@ const themeCards = document.querySelectorAll('.theme-card');
 let selectedTheme = "Minimal";
 
 themeCards.forEach(card => {
-    card.addEventListener('click', () => {
+    card.addEventListener('click', (e) => {
+         e.preventDefault();
         themeCards.forEach(c => c.classList.remove('active'));
         card.classList.add('active');
         selectedTheme = card.dataset.themeName;
@@ -84,8 +89,9 @@ const createBtn = document.getElementById('create-reel-btn');
 const processingContainer = document.getElementById('processing-container');
 const mainTool = document.querySelector('.main-tool');
 
-createBtn.addEventListener('click', () => {
+createBtn.addEventListener('click', (e) => {
     // Hide previous UI
+     e.preventDefault();
     videoContainer.classList.add('hidden');
     urlInput.parentElement.classList.add('hidden');
     processingContainer.classList.remove('hidden');
@@ -123,6 +129,7 @@ function simulateProgress() {
             setTimeout(() => {
                 processingContainer.classList.add('hidden');
                 document.getElementById('success-container').classList.remove('hidden');
+                preview_reel(sessionId);
             }, 800);
         }
     }, 600);
@@ -130,7 +137,8 @@ function simulateProgress() {
 
 // --- FAQ Accordion ---
 document.querySelectorAll('.faq-question').forEach(button => {
-    button.addEventListener('click', () => {
+    button.addEventListener('click', (e) => {
+         e.preventDefault();
         const answer = button.nextElementSibling;
         const icon = button.querySelector('i');
         
@@ -152,24 +160,26 @@ function initAnimations() {
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 }
+
+let sessionId = undefined; // Placeholder session ID for testing
+
 /* create Session ID for video processing */
 function createSessionId() {
     return 'sess_' + crypto.randomUUID();
 }
 
 /* Preview Reel Logic */
+async function preview_reel_call() {
+    preview_reel(sessionId);
+}
+
 async function preview_reel(sessionId) {
     const videoUrl = `http://127.0.0.1:5501/output/${sessionId}.mp4`;
     const pendingPageUrl = `/output/${sessionId}.mp4`;
 
     try {
         const res = await fetch(videoUrl, { method: "HEAD" });
-
-        if (res.ok) {
-            // ✅ File exists → open video in NEW TAB
-            window.open(videoUrl, "_blank");
-            return;
-        }
+        window.open(videoUrl, "_blank");
     } catch (err) {
         console.warn("Video not ready yet");
     }
@@ -194,7 +204,7 @@ function getValidYoutubeUrl() {
 async function handleCreateReel() {
     const template = getActiveThemeName();
     const youtubeUrl = getValidYoutubeUrl();
-    const sessionId = createSessionId();
+    sessionId = createSessionId();
 
     if (!template || !youtubeUrl) {
         alert("Please select a template and enter a valid YouTube URL.");
@@ -220,6 +230,8 @@ async function callTemplateAPI({ template, youtubeUrl, sessionId}) {
     apiUrl.searchParams.append("url", youtubeUrl);
     apiUrl.searchParams.append("session_id", sessionId);
 
+    preview_reel(sessionId);
+    
     const response = await fetch(apiUrl.toString(), {
         method: "POST"
     });
@@ -227,6 +239,5 @@ async function callTemplateAPI({ template, youtubeUrl, sessionId}) {
     if (!response.ok) {
         throw new Error("API request failed");
     }
-
     videolink = response.text(); // returns: output/{session_id}.mp4
 }
