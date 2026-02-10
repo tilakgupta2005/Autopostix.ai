@@ -12,28 +12,41 @@ app = FastAPI()
 @app.post("/template1")
 def get_template1(url: str, session_id: str): 
     print(f"Received request for Template 1 with URL: {url} and Session ID: {session_id}")
-    file_path = Path(Temp1(url))
-    shutil.copy(file_path, f"output/{session_id}.mp4")
-    os.remove(file_path)
-    return f"output/{session_id}.mp4"
+    try:
+        video_path, file_path = Temp1(url,session_id)
+        video_path = Path(video_path)
+        file_path = Path(file_path)
+        shutil.copy(video_path, f"output/{session_id}.mp4")
+        if file_path.exists() and file_path.is_dir():
+            shutil.rmtree(file_path)
+        return f"output/{session_id}.mp4"
+    except Exception as e:
+        print(f"Error processing Template 1: {e}")
 
 @app.post("/template2")
 def get_template2(url: str, session_id: str): 
     print(f"Received request for Template 2 with URL: {url} and Session ID: {session_id}")
-    file_path = Path(Temp2(url))
-    shutil.copy(file_path, f"output/{session_id}.mp4")
-    os.remove(file_path)
-    return f"output/{session_id}.mp4"
+    try:
+        video_path, file_path = Temp2(url,session_id)
+        video_path = Path(video_path)
+        file_path = Path(file_path)
+        shutil.copy(video_path, f"output/{session_id}.mp4")
+        if file_path.exists() and file_path.is_dir():
+            shutil.rmtree(file_path)
+        return f"output/{session_id}.mp4"
+    except Exception as e:
+        print(f"Error processing Template 2: {e}")
 
 @app.post("/template3")
 def get_template3(url: str, session_id: str): 
     print(f"Received request for Template 3 with URL: {url} and Session ID: {session_id}")
-    file_path = Path(Temp3(url))
-    shutil.copy(file_path, f"output/{session_id}.mp4")
-    os.remove(file_path)
-    return f"output/{session_id}.mp4"
-
-
-
-
-
+    try:
+        video_path, file_path = Temp3(url,session_id)
+        video_path = Path(video_path)
+        file_path = Path(file_path)
+        shutil.copy(video_path, f"output/{session_id}.mp4")
+        if file_path.exists() and file_path.is_dir():
+            shutil.rmtree(file_path)
+        return f"output/{session_id}.mp4"
+    except Exception as e:
+        print(f"Error processing Template 3: {e}")

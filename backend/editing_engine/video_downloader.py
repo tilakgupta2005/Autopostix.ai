@@ -6,7 +6,7 @@ import whisper
 import datetime
 import subprocess
 
-def download_video(url:str):
+def download_video(url:str,session_id:str):
     v_path = None
     try:
         yt_dlp.YoutubeDL({}).cache.remove()
@@ -18,7 +18,7 @@ def download_video(url:str):
     try:
         ydl_opts = {
             'format': 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best',
-            'outtmpl': rf'temp\%(id)s\%(id)s.%(ext)s',
+            'outtmpl': rf'temp\{session_id}\%(id)s.%(ext)s',
             'noplaylist': True,
             'cookies_from_browser': ('chrome',)    #fix required
         }
@@ -26,11 +26,10 @@ def download_video(url:str):
             print(f"Fetching video info from: {url}")
             info = ydl.extract_info(url, download=True)
             video_id = info.get('id', 'N/A')
-            video_title = info.get('title', 'N/A')
-            print(f"Directory created {video_id}")
+            print(f"Directory created {session_id} for video ID: {video_id}")
             print(f"Starting download...")
             ydl.download([url])
-            v_path = rf'temp\{video_id}\{video_id}.mp4'
+            v_path = rf'temp\{session_id}\{video_id}.mp4'
             print(f"Download complete! Video saved in {v_path}")
 
     except yt_dlp.utils.DownloadError as e:
