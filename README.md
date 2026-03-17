@@ -10,6 +10,10 @@ The project combines:
 
 This repository is open for **learning, experimentation, and community contributions**.
 
+Input:- [https://youtu.be/kxRZkJidkMM?si=GvPAHIhQ5HGE8y79](https://youtu.be/kxRZkJidkMM?si=GvPAHIhQ5HGE8y79)
+
+Output:- [https://drive.google.com/file/d/1PoF7OW4K6SWhEF_b4oDybwpQH1fP0ued/view?usp=drive_link](https://drive.google.com/file/d/1PoF7OW4K6SWhEF_b4oDybwpQH1fP0ued/view?usp=drive_link)
+
 ---
 
 ## ✨ Features
